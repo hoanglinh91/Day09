@@ -24,6 +24,9 @@ static int dem;
     UIImageView *img1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"face1"]];
     UIImageView *img2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"face2"]];
     UIImageView *img3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"face3"]];
+//    img1.backgroundColor =[UIColor blackColor];
+//    img2.backgroundColor =[UIColor blackColor];
+//    img3.backgroundColor =[UIColor blackColor];
     [img1 setTranslatesAutoresizingMaskIntoConstraints:NO];
     [img2 setTranslatesAutoresizingMaskIntoConstraints:NO];
     [img3 setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -38,11 +41,13 @@ static int dem;
     UIView *superview = self.view;
     NSDictionary *group = NSDictionaryOfVariableBindings(img1,img2,img3,superview);
     
-    _array = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[img1]-20-[img2]-20-[img3]-20-|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:group];
+    _array = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-30-[img1(img2)]-20-[img2(img3)]-20-[img3]-30-|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:group];
     
     [self.view addConstraints:_array];
 
-    _cst = [NSLayoutConstraint constraintWithItem:img1 attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1 constant:-self.view.center.y];
+    _cst = [NSLayoutConstraint constraintWithItem:img1 attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1 constant:-230];
+    // self.view.center.y
+    NSLog(@"%2.1f",self.view.center.y);
     [self.view addConstraint:_cst];
 }
 
@@ -51,13 +56,16 @@ static int dem;
     UIView *superview = self.view;
     NSDictionary *group = NSDictionaryOfVariableBindings(img1,img2,img3,superview);
     
-    _array = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-20-[img1]-20-[img2]-20-[img3]-20-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:group];
+    _array = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-30-[img1(img2)]-20-[img2(img3)]-20-[img3]-30-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:group];
     
     [self.view addConstraints:_array];
     
-    _cst = [NSLayoutConstraint constraintWithItem:img1 attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:-self.view.center.y];
+    _cst = [NSLayoutConstraint constraintWithItem:img1 attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:-230];
+    //self.view.center.y
+    NSLog(@"%2.1f",self.view.center.y);
     [self.view addConstraint:_cst];
 }
+
 
 -(void)viewWillLayoutSubviews{
     if (self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
